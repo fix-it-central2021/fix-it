@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Cabecera from './components/Cabecera'
+import React, {Component} from 'react'
+class App extends Component { 
+  
+   ManejaClick = (nombre) => {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    console.log("He sido clickeado por: "+nombre)
+  
+  }
+  
+
+  render(){
+    return (    //puedo sacar propiedades de cabecera y setearlas
+      <div className="App">
+          <Cabecera titulo="FIX IT" manejaclick={this.ManejaClick("Josue")}/> 
+          <p className="App-intro">
+            Hola mundo
+          </p>
+       
+      </div>
+    );
+  }
+
 }
+
+
 
 export default App;
