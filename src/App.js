@@ -1,5 +1,7 @@
 import './App.css';
 import Cabecera from './components/Cabecera'
+import Barra from './components/Barra'
+
 import React, {Component} from 'react'
 class App extends Component { 
   
@@ -14,9 +16,7 @@ class App extends Component {
     return (    //puedo sacar propiedades de cabecera y setearlas
       <div className="App">
           <Cabecera titulo="FIX IT" manejaclick={this.ManejaClick("Josue")}/> 
-          <p className="App-intro">
-            Hola mundo
-          </p>
+          <Barra></Barra>
        
       </div>
     );

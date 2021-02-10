@@ -19,6 +19,32 @@
   width: 100%;
   height: 27vmin;
   display: flex;
+  margin-top: 0;
+}
+
+#login{
+
+  background-color: white;
+  color: #29274E ;
+  width: 20vmin;
+  height: 5vmin;
+  font-family: msyi;
+  font-size: 20px;
+  border-radius: 20px;
+  
+
+
+
+}
+
+#shopping_button{
+
+  width: 5vmin;
+  height: 5vmin;
+  color: white;
+  margin-top: 0;
+  
+
 }
 
 .titulo{
@@ -36,10 +62,10 @@
 
 .texto{
 
-  width: 20vmin;
-  text-align: center;
-  font-family: msyi;
   color: white;
+  width: 20vmin;
+  height: 5vmin;
+  font-family: msyi;
   font-size: 30px;
 
 }
