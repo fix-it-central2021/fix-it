@@ -1,29 +1,43 @@
 import './App.css';
-import Cabecera from './components/Cabecera'
-import Barra from './components/Barra'
 
-import React, {Component} from 'react'
-class App extends Component { 
-  
-   ManejaClick = (nombre) => {
+import Form_crear from './components/Form_crear'
+import Tienda_comp from './components/Tienda'
 
-    console.log("He sido clickeado por: "+nombre)
-  
-  }
-  
+import React from 'react'
 
-  render(){
+export const HomePage = () =>{  
     return (    //puedo sacar propiedades de cabecera y setearlas
       <div className="App">
-          <Cabecera titulo="FIX IT" manejaclick={this.ManejaClick("Josue")}/> 
-          <Barra></Barra>
-       
+ 
       </div>
     );
-  }
+
+}
+
+export const CrearOrden = () =>{  
+  return (    //puedo sacar propiedades de cabecera y setearlas
+    <div className="App">
+ 
+        <Form_crear></Form_crear>
+    </div>
+  );
+
+}
+
+export const Tienda = () =>{  
+  return (    //puedo sacar propiedades de cabecera y setearlas
+    <div className="App">
+
+        <Tienda_comp/>
+    </div>
+  );
 
 }
 
 
 
-export default App;
+
+
+
+
+
