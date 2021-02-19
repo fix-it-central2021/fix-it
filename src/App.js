@@ -17,8 +17,7 @@ export const HomePage = () =>{
 
 export const CrearOrden = () =>{  
   return (    //puedo sacar propiedades de cabecera y setearlas
-    <div className="App">
- 
+    <div className="App"> 
         <Form_crear></Form_crear>
     </div>
   );
@@ -34,7 +33,7 @@ export const Tienda = () =>{
   );
 }
   export const Vistaitem = (props) =>{  
-  const {id} = props.location.state
+  const {id} = props.location.state   //obtengo propiedad de location state que se envia cuando llamo a Vistaitem
     return (    //puedo sacar propiedades de cabecera y setearlas
       <div className="App">  
           <Vista_item id={id} ></Vista_item>

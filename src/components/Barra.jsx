@@ -18,6 +18,8 @@ export default function CenteredTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //history push se puede utilizar para navegar a otras vistas
   const history = useHistory();
   const ver_inicio = useCallback(() => history.push('/'), [history]);
   const ver_tienda_en_linea = useCallback(() => history.push('/tienda'), [history]);

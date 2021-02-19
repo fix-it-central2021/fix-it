@@ -16,7 +16,6 @@ export default class Item extends Component {
         
         return (
 
-
             <Grid item xs={6} md={3} >
                 <Link to = {{
                     pathname: "/vista-item/"+objeto.Id,
@@ -24,7 +23,7 @@ export default class Item extends Component {
                         id: objeto.Id
                                             }}}>
                     <Paper style={{
-                        padding: 100,
+                        padding: 50,
                         textAlign: 'center'
                     }}>
                         <iframe src={objeto.Imagen} style={{

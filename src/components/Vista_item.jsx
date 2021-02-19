@@ -8,11 +8,21 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 
+const agregar_a_carrito = (repuesto_buscado) => {
+  let carrito = []
+  carrito = JSON.parse(sessionStorage.getItem('carrito'))
+  if(carrito!=null){
+    carrito.push(JSON.stringify(repuesto_buscado))
+  }else{
+    carrito=[]
+    carrito.push(JSON.stringify(repuesto_buscado))
+  }      
+  sessionStorage.setItem('carrito', JSON.stringify( carrito))
+}
 export default class Vista_item extends Component {
 
   render() {
 
-    localStorage.removeItem('firebase:host:foodify-dbdf9.firebaseio.com');
     let items_select = []
     items_select = JSON.parse(localStorage.getItem('items_select'))
     const { id } = this.props
@@ -23,6 +33,8 @@ export default class Vista_item extends Component {
     })
 
     const repuesto_buscado = JSON.parse(repuesto_buscado_array)
+
+
 
     return (
       <Card style={{
@@ -51,7 +63,7 @@ export default class Vista_item extends Component {
               {" Precio:  Q " + repuesto_buscado.Precio}
             </Typography>
             <CardActions>
-              <Button size="large" color="primary" style={{
+              <Button onClick={agregar_a_carrito(repuesto_buscado)} size="large" color="primary" style={{
                 color: 'white',
                 font: 'msyi',
                 borderRadius: 43,

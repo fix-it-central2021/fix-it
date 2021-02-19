@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 export default class Cabecera extends Component {
 
 
+  //metodo para ver las opciones disponibles del menu segun el usuario
   opciones_disponibles = (listaopciones) => {
     alert("sus opciones son :" + listaopciones)  //metodo para pasar opciones disponibles sgun el usuario al darle click a su nombre
   }

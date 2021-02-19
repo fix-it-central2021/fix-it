@@ -12,25 +12,24 @@ const useStyles = makeStyles(() => ({
     }    
 }));
 
-const allStorage = () => {      /*aca obtengo datos de bases de datos*/ 
-    localStorage.removeItem('firebase:host:foodify-dbdf9.firebaseio.com');
+const obtener_items = () => {      /*aca obtengo datos de bases de datos*/ 
     let items_select
-    items_select = JSON.parse(localStorage.getItem('items_select'))  
+    items_select = JSON.parse(localStorage.getItem('items_select'))   //simulado con localstorage
     return items_select;
 }
 
-const elements = allStorage();
+const repuestos = obtener_items(); //obtengo array de repuestos para imprimirlos
 const items = []
-
+repuestos.forEach(repuesto => items.push(<Item>{repuesto}</Item>)); //por cada elemento agrego al array un componente item
+//se coloca afuera de la funcion porque si no cada vez que se manda a llamar el componente agrega de nuevo los elementos
 
 export default function Tienda() { 
     const classes = useStyles()
-    elements.forEach(element => items.push(<Item>{element}</Item>));
-
+    //pasando el children element que es el objeto del repuesto
     return (
         <div className={classes.root} >
             <Grid container spacing={5} >
-                {items}
+                {items /*paso el array de componentes Item para renderizarlos*/} 
             </Grid>
         </div>
     )
