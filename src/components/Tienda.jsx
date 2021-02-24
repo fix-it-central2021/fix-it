@@ -6,8 +6,8 @@ import Item  from './Item'
 const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
-        marginLeft: '150px',
-        marginRight: '150px',
+        marginLeft: '5%',
+        marginRight: '5%',
         marginTop: '40px'
     }    
 }));
@@ -28,7 +28,7 @@ export default function Tienda() {
     //pasando el children element que es el objeto del repuesto
     return (
         <div className={classes.root} >
-            <Grid container spacing={5} >
+            <Grid container spacing={10} >
                 {items /*paso el array de componentes Item para renderizarlos*/} 
             </Grid>
         </div>

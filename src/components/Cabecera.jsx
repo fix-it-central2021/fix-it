@@ -7,6 +7,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -28,7 +29,7 @@ export default class Cabecera extends Component {
 
         <img src={logo} /*para enviar algo mas que un string abro llaves*/ className="App-logo" alt="logo" />
         <h1 className="titulo"> {titulo} </h1>
-        <div style={{ display: "flex", marginTop: "40px", height: "140px", width: "300px" }} >
+        <Grid style={{ display: "flex", marginTop: "40px", height: "140px", width: "300px" }} >
 
           <form noValidate autoComplete="off">
             <Login inicio_sesion={false} usuario="Josue Godinez" opciones_disponibles={this.opciones_disponibles} lista_opciones={[0, 1, 2, 3, 4, 5]} /*envio metodo de opciones y en el this.props la lista que puede ser variable*/></Login>
@@ -57,7 +58,7 @@ export default class Cabecera extends Component {
 
 
 
-        </div>
+        </Grid>
 
 
       </div>

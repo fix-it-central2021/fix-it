@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 
 
 
-
 export default class Item extends Component {
    
     render() {
@@ -16,21 +15,21 @@ export default class Item extends Component {
         
         return (
 
-            <Grid item xs={6} md={3} >
+            <Grid item xs={6}  md={3} >
                 <Link to = {{
                     pathname: "/vista-item/"+objeto.Id,
                     state:{
                         id: objeto.Id
                                             }}}>
                     <Paper style={{
-                        padding: 50,
+                        
                         textAlign: 'center'
                     }}>
                         <iframe src={objeto.Imagen} style={{
-                            marginLeft: 'auto',
-                            marginRight: 'auto',
-                            height: 200,
-                            width: 200
+                            height: '100%',
+                            width: '100%',
+                            top:0,
+                            left:0
                         }}></iframe>
                         <h5>{objeto.Descripcion}</h5>
 
