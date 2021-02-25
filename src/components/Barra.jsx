@@ -1,9 +1,9 @@
-import React,{useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -33,10 +33,22 @@ export default function CenteredTabs() {
         textColor="primary"
         centered
       >
-              <Tab label="Inicio" onClick={ver_inicio}/>
-              <Tab label="Tienda en linea" onClick={ver_tienda_en_linea} />
-              <Tab label="Ofertas" />
-              <Tab label="Ubicaciones" />
+        <Tab
+          style={{
+            fontSize: '2vmin'
+          }} label="Inicio" onClick={ver_inicio} />
+        <Tab
+          style={{
+            fontSize: '2vmin'
+          }} label="Tienda en linea" onClick={ver_tienda_en_linea} />
+        <Tab
+          style={{
+            fontSize: '2vmin'
+          }} label="Ofertas" />
+        <Tab
+          style={{
+            fontSize: '2vmin'
+          }} label="Ubicaciones" />
 
 
       </Tabs>

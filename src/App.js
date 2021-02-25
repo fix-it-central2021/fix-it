@@ -15,7 +15,7 @@ export const HomePage = () =>{
 
 }
 
-export const CrearOrden = () =>{  
+export const CrearOrden = (props) =>{  
   return (    //puedo sacar propiedades de cabecera y setearlas
     <div className="App"> 
         <Form_crear></Form_crear>
