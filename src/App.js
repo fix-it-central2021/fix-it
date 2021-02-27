@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-pascal-case */
 import './App.css';
 
 import Form_crear from './components/Form_crear'
 import Tienda_comp from './components/Tienda'
 import Vista_item from './components/Vista_item'
-
+import Ordenes_comp from './components/Ordenes'
 import React from 'react'
 
 export const HomePage = () =>{  
@@ -39,6 +40,14 @@ export const Tienda = () =>{
           <Vista_item id={id} ></Vista_item>
       </div>
     );
+  }
+
+    export const Ordenes = () =>{  
+        return (    //puedo sacar propiedades de cabecera y setearlas
+          <div className="App">  
+              <Ordenes_comp></Ordenes_comp>
+          </div>
+        );
 
 }
 

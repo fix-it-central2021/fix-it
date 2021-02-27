@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 
 
 
@@ -79,17 +80,21 @@ export default class Form_crear extends Component {
         const crear_orden = () => {
 
             let ordenes = []
+            
 
             const Direccion_entrega = this.state.dir_entrega
             const Direccion_facturacion = this.state.dir_factura
+            ordenes = JSON.parse(localStorage.getItem('ordenes'))
+
             const orden = {
+                id:  ordenes == null ? 0: ordenes.length+1,
                 Direccion_entrega: Direccion_entrega,
                 Direccion_facturacion: Direccion_facturacion,
-                Total: this.Total,
-                Carrito: carrito                
+                Total: Total,
+                Estado: 'En proceso',
+                Carrito: carrito
             }
 
-            ordenes = JSON.parse(localStorage.getItem('ordenes'))
             if (ordenes != null) {
                 ordenes.push(JSON.stringify(orden))
             } else {
@@ -97,13 +102,18 @@ export default class Form_crear extends Component {
                 ordenes.push(JSON.stringify(orden))
             }
             localStorage.setItem('ordenes', JSON.stringify(ordenes))
-            alert(JSON.parse(localStorage.getItem('ordenes')))
+            cancelar_orden()
+        }
+
+        const cancelar_orden = () => {
+            const carrito = []
+            sessionStorage.setItem('carrito', JSON.stringify(carrito))
         }
 
         const carrito = obtener_carrito()
+        let Total = 0
 
         const items = []
-        let Total = 0
 
         if (carrito.length !== 0) {
 
@@ -207,21 +217,24 @@ export default class Form_crear extends Component {
                             marginTop: '100'
 
                         }}>
+                            <Link to="/ordenes" >
+                                <Button onClick={() => crear_orden()} type="submit" size="large" color="primary" style={styles.boton}>
+                                    Confirmar Orden
+                                </Button>
+                            </Link>
 
-                            <Button onClick={() => crear_orden() } type="submit" size="large" color="primary" style={styles.boton}>
-                                Confirmar Orden
-                         </Button>
-
-                            <Button type="submit" size="large" color="primary" style={styles.boton}>
-                                Cancelar Orden
-                         </Button>
+                            <Link to="/crear_orden" >
+                                <Button onClick={() => cancelar_orden()} type="submit" size="large" color="primary" style={styles.boton}>
+                                    Cancelar Orden
+                                </Button>
+                            </Link>
                         </Grid>
 
 
                     </Grid>
 
 
-                </div>
+                </div >
 
             )
         } else {
@@ -229,7 +242,7 @@ export default class Form_crear extends Component {
                 style={{
                     marginTop: 200
                 }}
-            >Agrega algo al carrito para realizar una compra   </h1>)
+            >Agrega algo al carrito para realizar una compra :(  </h1>)
 
         }
 
