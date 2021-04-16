@@ -79,30 +79,37 @@ export default class Form_crear extends Component {
 
         const crear_orden = () => {
 
-            let ordenes = []
+        
             
 
             const Direccion_entrega = this.state.dir_entrega
             const Direccion_facturacion = this.state.dir_factura
-            ordenes = JSON.parse(localStorage.getItem('ordenes'))
+
+          
 
             const orden = {
-                id:  ordenes == null ? 0: ordenes.length+1,
-                Direccion_entrega: Direccion_entrega,
-                Direccion_facturacion: Direccion_facturacion,
+                user:"jogodine",                
+                dir_entrega: Direccion_entrega,
+                dir_factura: Direccion_facturacion,
                 Total: Total,
-                Estado: 'En proceso',
-                Carrito: carrito
+                estado: 'En proceso',
+                Repuestos: ids_carrito
             }
 
-            if (ordenes != null) {
-                ordenes.push(JSON.stringify(orden))
-            } else {
-                ordenes = []
-                ordenes.push(JSON.stringify(orden))
-            }
-            localStorage.setItem('ordenes', JSON.stringify(ordenes))
-            cancelar_orden()
+            fetch('http://localhost:3600/orden', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.  
+        mode: 'cors',      
+        headers: {
+            'access-token': localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(orden)             
+      }) 
+
+      cancelar_orden()
+            
         }
 
         const cancelar_orden = () => {
@@ -111,6 +118,11 @@ export default class Form_crear extends Component {
         }
 
         const carrito = obtener_carrito()
+        let ids_carrito = []
+        carrito.forEach(item => {
+            ids_carrito.push(JSON.parse(item)._id)
+        });
+
         let Total = 0
 
         const items = []
@@ -120,9 +132,9 @@ export default class Form_crear extends Component {
             carrito.forEach(item => {
                 items.push(
                     <Grid style={styles.item_grid}
-                        item xs={12}>{JSON.parse(item).Descripcion + "   -   " + "Q " + JSON.parse(item).Precio} </Grid>);
+                        item xs={12}>{JSON.parse(item).nombre + "   -   " + "Q " + JSON.parse(item).precio} </Grid>);
 
-                Total += JSON.parse(item).Precio
+                Total += JSON.parse(item).precio
             });
 
 

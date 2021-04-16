@@ -36,6 +36,23 @@ ReactDOM.render(
 
 );
 
+fetch('http://localhost:3600/login', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.  
+        mode: 'cors',      
+        headers: {
+            'Content-Type': 'application/json',
+          
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({usuario: 'jogodine', contrasena: '12345678'})             
+      }) 
+      .then(response => response.json())
+      .then(data =>  localStorage.setItem('token',data.token));
+      
+  
+
+  
+
 
 const carrito = []
 sessionStorage.setItem('carrito', JSON.stringify(carrito))

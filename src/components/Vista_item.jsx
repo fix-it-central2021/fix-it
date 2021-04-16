@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
 
+import {Image,Transformation} from 'cloudinary-react';
 
 
 const styles = {
@@ -40,6 +41,14 @@ const styles = {
   form: {
     display: 'flex',
     flexDirection: 'column',
+  },
+
+  image: {
+
+    height: '0.2vmim',
+    width: '0.2vmim',
+    top:0,
+    left:0
   }
 
 
@@ -48,7 +57,9 @@ const styles = {
 };
 
 export default class Vista_item extends Component {
-  state = {}
+  state = {
+    repuesto_buscado:{}
+  }
 
   obtener_datos = ({ target }) => {
     const { name, value } = target
@@ -57,17 +68,42 @@ export default class Vista_item extends Component {
     //nombre se llamara nombre
   }
 
-  render() {
-    let items_select = []
-    items_select = JSON.parse(localStorage.getItem('items_select'))
+  traer_repuesto= async (id)  =>{
+    let response 
+    response = await fetch('http://localhost:3600/repuesto/'+id, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.  
+        mode: 'cors',      
+        headers: {
+            'access-token': localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        }             
+      });
+
+      return response.json()
+  }
+
+  componentDidMount(){
     const { id } = this.props
+    this.traer_repuesto(id)
+    .then((data)=>{
 
-    const repuesto_buscado_array = items_select.find(repuesto => {
-      const respuesto_o = JSON.parse(repuesto)
-      return respuesto_o.Id === id
+      this.setState({repuesto_buscado:data})
     })
+    .catch((error)=>{
+      console.log('Hubo un problema al traer datos al API y guardarlos: ' + error.message);
+    }       
+      
 
-    const repuesto_buscado = JSON.parse(repuesto_buscado_array)
+    )
+  }
+
+  render() {
+    
+
+
+    
 
 
 
@@ -100,13 +136,12 @@ export default class Vista_item extends Component {
           },
           color:'#29274E'
         }}>
-          {repuesto_buscado.Descripcion}
+          {this.state.repuesto_buscado.nombre}
         </Typography>
         <CardActionArea style={{ display: 'flex' }}>
-          <iframe src={repuesto_buscado.Imagen} style={{
-            height: 500,
-            width: 500
-          }}></iframe>
+        <Image cloudName="fix-it" publicId={this.state.repuesto_buscado.img} alt = "Repuesto"  >
+        <Transformation width="300"   crop="fill" />
+          </Image>
           <CardContent >
 
             <Typography variant="h5" color="textSecondary" component="p" style={{
@@ -114,7 +149,7 @@ export default class Vista_item extends Component {
               marginBottom: 50,
 
             }}>
-              {" Precio:  Q " + repuesto_buscado.Precio}
+              {" Precio:  Q " + this.state.repuesto_buscado.precio}
             </Typography>
             <CardActions style = {styles.form}>
               <TextField
@@ -129,7 +164,7 @@ export default class Vista_item extends Component {
               />
 
               <Link to="/crear_orden" >
-                <Button type="submit" onClick={() => agregar_a_carrito(repuesto_buscado) /*se llama con fat arrow functions 
+                <Button type="submit" onClick={() => agregar_a_carrito(this.state.repuesto_buscado) /*se llama con fat arrow functions 
             porque si solo paso la variable dentro de las llaves se va a llamar cuando renderize el componente*/} size="large" color="primary" style={styles.boton}>
                   Agregar al carrito de compras
                   </Button>
