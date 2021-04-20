@@ -1,20 +1,32 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Orden from './Orden'
+import {Orden_backend} from '../backend/orden'
 
 
-const obtener_ordenes = () => {      /*aca obtengo datos del carrito*/
-    let ordenes
-    ordenes = JSON.parse(localStorage.getItem('ordenes'))
-    return ordenes;
-};
 
 export default class Ordenes extends Component {
+    
+    state = {
+        ordenes:[]
+      }
+
+    componentDidMount(){
+        const orden_backend = new Orden_backend()
+
+        orden_backend.traer_ordenes().then((data)=>{
+
+            this.setState({ordenes:data})
+          })
+          .catch((error)=>{
+            console.log('Hubo un problema al traer datos al API y guardarlos: ' + error.message);
+          }  )
+    }
 
     render() {
 
-        const ordenes = obtener_ordenes()
-
+        const ordenes = this.state.ordenes
+        console.log(ordenes)
         const items = []
 
 
@@ -24,7 +36,7 @@ export default class Ordenes extends Component {
             if(ordenes.length!=0){
                 ordenes.forEach(item => {
                     items.push(                                     
-                        <Orden orden={JSON.parse(item)}></Orden>);
+                        <Orden orden={item}></Orden>);
                 });
     
                 //por cada elemento agrego al array un componente item

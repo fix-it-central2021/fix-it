@@ -23,7 +23,7 @@ export default class Items_orden extends Component {
         const items = []
 
 
-        const carrito = orden.Carrito
+        const carrito = orden.Repuestos
 
         carrito.forEach(item => {
             items.push(<Typography variant="h5" color="textSecondary" component="body1" style={{

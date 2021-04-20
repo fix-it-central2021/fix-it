@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
+import {Orden_backend}  from '../backend/orden.js'
 
 
 
@@ -96,19 +97,10 @@ export default class Form_crear extends Component {
                 Repuestos: ids_carrito
             }
 
-            fetch('http://localhost:3600/orden', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.  
-        mode: 'cors',      
-        headers: {
-            'access-token': localStorage.getItem('token'),
-            'Content-Type': 'application/json',
-          
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(orden)             
-      }) 
+            const orden_=new Orden_backend()
 
-      cancelar_orden()
+            orden_.insertar_orden(orden)
+            cancelar_orden() //limpiar carrito
             
         }
 

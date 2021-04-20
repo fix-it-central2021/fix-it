@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
 
 import {Image,Transformation} from 'cloudinary-react';
-
+import {Repuesto} from '../backend/repuesto'
 
 const styles = {
   input: {
@@ -68,25 +68,12 @@ export default class Vista_item extends Component {
     //nombre se llamara nombre
   }
 
-  traer_repuesto= async (id)  =>{
-    let response 
-    response = await fetch('http://localhost:3600/repuesto/'+id, {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.  
-        mode: 'cors',      
-        headers: {
-            'access-token': localStorage.getItem('token'),
-            'Content-Type': 'application/json',
-          
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        }             
-      });
 
-      return response.json()
-  }
 
   componentDidMount(){
+    const repuesto=new Repuesto()
     const { id } = this.props
-    this.traer_repuesto(id)
+    repuesto.traer_repuesto(id)
     .then((data)=>{
 
       this.setState({repuesto_buscado:data})
@@ -139,7 +126,7 @@ export default class Vista_item extends Component {
           {this.state.repuesto_buscado.nombre}
         </Typography>
         <CardActionArea style={{ display: 'flex' }}>
-        <Image cloudName="fix-it" publicId={this.state.repuesto_buscado.img} alt = "Repuesto"  >
+        <Image cloudName="fix-it" publicId={"Repuestos/"+this.state.repuesto_buscado.img} alt = "Repuesto"  >
         <Transformation width="300"   crop="fill" />
           </Image>
           <CardContent >

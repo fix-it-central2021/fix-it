@@ -25,7 +25,7 @@ export default class Item extends Component {
                         
                         textAlign: 'center'
                     }}>
-                        <Image cloudName="fix-it" publicId={objeto.img} alt = "Repuesto"style={{
+                        <Image cloudName="fix-it" publicId={"Repuestos/"+objeto.img} alt = "Repuesto"style={{
                             height: '100%',
                             width: '100%',
                             top:0,

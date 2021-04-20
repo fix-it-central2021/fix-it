@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Item  from './Item'
-
+import {Repuesto}  from '../backend/repuesto.js'
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -12,27 +12,13 @@ const useStyles = makeStyles(() => ({
     }    
 }));
 
-const  obtener_items = async ()  => {      /*aca obtengo datos de bases de datos*/ 
-    let response 
-    response = await fetch('http://localhost:3600/repuesto', {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.  
-        mode: 'cors',      
-        headers: {
-            'access-token': localStorage.getItem('token'),
-            'Content-Type': 'application/json',
-          
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        }             
-      });
-      const data=response.json()
-      
-      return data; // parses JSON response into native JavaScript objects
-    }
-    
+
 
 let items =[]
 
-obtener_items().then( data=>{
+const repuesto = new Repuesto();
+
+repuesto.obtener_items().then( data=>{
  //obtengo array de repuestos para imprimirlos
 console.log(data)
  data.forEach(repuesto => items.push(<Item>{repuesto}</Item>)); //por cada elemento agrego al array un componente item

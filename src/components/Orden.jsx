@@ -64,7 +64,6 @@ export default class Orden extends Component {
         const eliminar_orden = () => {
             let ordenes = []
 
-
             ordenes = JSON.parse(localStorage.getItem('ordenes'))
             const index = ordenes.findIndex(orden_ => orden_.id === orden.id)
             ordenes.splice(index, 1)

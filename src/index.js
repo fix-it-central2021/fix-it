@@ -44,7 +44,7 @@ fetch('http://localhost:3600/login', {
           
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({usuario: 'jogodine', contrasena: '12345678'})             
+        body: JSON.stringify({usuario: 'nuevo', contrasena: '12345678'})             
       }) 
       .then(response => response.json())
       .then(data =>  localStorage.setItem('token',data.token));
