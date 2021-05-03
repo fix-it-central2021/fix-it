@@ -69,11 +69,11 @@ export default class Orden extends Component {
             ordenes.splice(index, 1)
             localStorage.setItem('ordenes', JSON.stringify(ordenes))
         }
-        const { orden } = this.props //obtengo la propiedad de this.props que es un objeto reservado de todos los componentes que me permite sacar propiedades para usarlas
+        const { orden } =  this.props //obtengo la propiedad de this.props que es un objeto reservado de todos los componentes que me permite sacar propiedades para usarlas
         //en este caso le envio si ya incio sesion para mostrar el boton
         if (orden.Estado === 'En proceso') {
             return (
-                <Grid container style={styles.grid} spacing={3}>
+                <Grid container style={styles.grid} spacing={1}>
 
                     <Grid container item xs={12} sm={12} md={7}>
                         <Items_orden

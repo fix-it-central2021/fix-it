@@ -23,7 +23,7 @@ export default class Items_orden extends Component {
         const items = []
 
 
-        const carrito = orden.Repuestos
+        const carrito = orden.repuestosObjects
 
         carrito.forEach(item => {
             items.push(<Typography variant="h5" color="textSecondary" component="body1" style={{
@@ -33,7 +33,7 @@ export default class Items_orden extends Component {
                 width: '40%'
 
             }}>  {
-                    JSON.parse(item).Descripcion + " ,"
+                    item.nombre + " ,"
                 }</Typography>);
         });
 
@@ -52,14 +52,14 @@ export default class Items_orden extends Component {
                             font: 'msyi',
                             marginRight: '1%',
                             width: '40%'
-                        }}>  {JSON.parse(carrito[0]).Descripcion + ","}</Typography>
+                        }}>  {carrito[0].nombre + ","}</Typography>
                         <Typography variant="h5" color="textSecondary" component="body1" style={{
                             color: '#2755A3',
                             font: 'msyi',
                             marginRight: '1%',
                             width: '40%'
 
-                        }}>  {JSON.parse(carrito[1]).Descripcion + "..."}</Typography>
+                        }}>  {carrito[1].nombre + "..."}</Typography>
                       </ThemeProvider>
                 </div>
               

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,33 +8,35 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-import {Image,Transformation} from 'cloudinary-react';
-import {Repuesto} from '../backend/repuesto'
+import { Image, Transformation } from 'cloudinary-react';
+import { Repuesto } from '../backend/repuesto'
+import { Redirect } from "react-router";
 
-const styles = {
-  input: {
-    fontSize: 30
-  },
+const useStyles = makeStyles(() => ({
+
 
 
   text_field: {
 
-    width: 200
+    width: '27vmin',
+    marginBottom: '2.3vmin'
   },
 
   boton: {
-    borderRadius: 43,
+    borderRadius: "4.3vmin",
     backgroundColor: '#15086B',
-    width: 400,
-    height: 70,
-    marginLeft: 60,
-    color: 'white',    
-    marginTop: '15px',
-    Typography:{
+    width: "40vmin",
+    height: "7vmin",
+    marginLeft: "6vmin",
+    color: 'white',
+    marginTop: '1.5vmin',
+    Typography: {
       fontFamily: ['msyi']
     }
-    
+
 
   },
 
@@ -45,126 +47,196 @@ const styles = {
 
   image: {
 
-    height: '0.2vmim',
-    width: '0.2vmim',
-    top:0,
-    left:0
+    marginRight: "3vmin",
+    width: "30vmin"
   }
+}));
 
 
 
 
-};
 
-export default class Vista_item extends Component {
-  state = {
-    repuesto_buscado:{}
-  }
+const repuesto = new Repuesto()
 
-  obtener_datos = ({ target }) => {
-    const { name, value } = target
-    this.setState({ [name]: value }) //uso corchetes esta vez[] porque con corchetes me aseguro a que la propiedad 
-    //sea calculada entonces si mi campo se llama cantidad el campo se llamara cantidad y si es
-    //nombre se llamara nombre
-  }
+export default function Vista_item(props) {
+  const classes = useStyles()
+
+  const [allValues, setAllValues] = useState({
+    repuesto_buscado: {},
+    is_fetching: true
+   
 
 
+  })
 
-  componentDidMount(){
-    const repuesto=new Repuesto()
-    const { id } = this.props
+  const [token_user, set_token_user] = useState({
+    token: sessionStorage.getItem("token") + ' ' , user: sessionStorage.getItem("user")  })
+
+  const [count, setcount] = useState({
+    count: 0
+
+  })
+
+
+
+
+  const { id } = props
+
+  useEffect(() => {
     repuesto.traer_repuesto(id)
-    .then((data)=>{
+      .then((data) => {
+        console.log(data)
+        setAllValues({
+          repuesto_buscado: data,
+          is_fetching: false
+          
 
-      this.setState({repuesto_buscado:data})
-    })
-    .catch((error)=>{
-      console.log('Hubo un problema al traer datos al API y guardarlos: ' + error.message);
-    }       
-      
+        })
 
-    )
-  }
+      }).catch((error) => {
 
-  render() {
-    
+        if (error.response) {
 
+          error.response.status === 401 ? 
+            sessionStorage.setItem("token", null)  :   sessionStorage.setItem("token", null);
 
-    
+            error.response.status === 401 ? 
+            sessionStorage.setItem("user", null)  :   sessionStorage.setItem("user", null);
 
-
-
-    const agregar_a_carrito = (repuesto_buscado) => {
-
-      for (let i = 0; i < this.state.cantidad; i++) {
-        let carrito = []
-        carrito = JSON.parse(sessionStorage.getItem('carrito'))
-        if (carrito != null) {
-          carrito.push(JSON.stringify(repuesto_buscado))
-        } else {
-          carrito = []
-          carrito.push(JSON.stringify(repuesto_buscado))
+            set_token_user( { token: sessionStorage.getItem("token") + ' ' , user: sessionStorage.getItem("user")})
+          setAllValues({
+            repuesto_buscado: {},
+            is_fetching: true
+            
+  
+          })
+         
         }
-        sessionStorage.setItem('carrito', JSON.stringify(carrito))
-      }
-    }
 
+
+      })
+  }, [id])
+
+
+
+
+
+
+
+
+
+  const agregar_a_carrito = (repuesto_buscado) => {
+
+    for (let i = 0; i < count; i++) {
+      let carrito = []
+      carrito = JSON.parse(sessionStorage.getItem('carrito'))
+      if (carrito != null) {
+        carrito.push(JSON.stringify(repuesto_buscado))
+      } else {
+        carrito = []
+        carrito.push(JSON.stringify(repuesto_buscado))
+      }
+      sessionStorage.setItem('carrito', JSON.stringify(carrito))
+    }
+  }  
+   
+         
 
 
     return (
+      token_user.token===null ? 
+
+      <Redirect to="/login"/>
+      :
       <Card style={{
         marginTop: 30
 
       }}>
-        <Typography gutterBottom variant="h4" component="h2" style={{
-          textAlign: 'center',
-          Typography:{
-            fontFamily:['msyi']
-          },
-          color:'#29274E'
-        }}>
-          {this.state.repuesto_buscado.nombre}
-        </Typography>
-        <CardActionArea style={{ display: 'flex' }}>
-        <Image cloudName="fix-it" publicId={"Repuestos/"+this.state.repuesto_buscado.img} alt = "Repuesto"  >
-        <Transformation width="300"   crop="fill" />
-          </Image>
-          <CardContent >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography gutterBottom style={{
+              textAlign: 'center',
+              Typography: {
+                fontFamily: ['msyi'],
 
-            <Typography variant="h5" color="textSecondary" component="p" style={{
+              },
               color: '#29274E',
-              marginBottom: 50,
-
+              fontSize: '7vmin'
             }}>
-              {" Precio:  Q " + this.state.repuesto_buscado.precio}
+              {allValues.is_fetching ? 'Fetching name...' : allValues.repuesto_buscado.nombre}
             </Typography>
-            <CardActions style = {styles.form}>
-              <TextField
-                variant="outlined"
-                label="Cantidad"
-                name="cantidad"/*utilizo la cantidad del props*/
-                style={styles.text_field}
-                InputProps={{
-                  style: styles.input
-                }}//obtengo cantidad cuando lo cambien
-                onChange={this.obtener_datos}
-              />
+          </Grid>
 
-              <Link to="/crear_orden" >
-                <Button type="submit" onClick={() => agregar_a_carrito(this.state.repuesto_buscado) /*se llama con fat arrow functions 
-            porque si solo paso la variable dentro de las llaves se va a llamar cuando renderize el componente*/} size="large" color="primary" style={styles.boton}>
-                  Agregar al carrito de compras
-                  </Button>
-              </Link>
+          <CardActionArea style={{ display: 'flex' }}>
 
-            </CardActions>
-          </CardContent>
-        </CardActionArea>
+            {allValues.is_fetching ? 'Fetching image...' :
+              <div className={classes.image}>
+                <Image style={{
+                  width: "100%"
+
+                }} cloudName="fix-it" publicId={"Repuestos/" + allValues.repuesto_buscado.img} alt="Repuesto"  >
+
+                </Image>
+              </div>
+            }
+
+            <Grid item xs={3}>
+              <CardContent >
+
+
+                <Typography variant="h4" color="textSecondary" component="p" style={{
+                  color: '#29274E',
+                  marginBottom: "5vmin",
+                  fontSize: '3.8vmin'
+
+                }}>
+                  {" Precio:  Q " + (allValues.is_fetching ? 'Fetching price...' : allValues.repuesto_buscado.precio)}
+                </Typography>
+
+                <CardActions className={classes.form}>
+                  <TextField
+                    variant="outlined"
+                    label="Cantidad"
+                    name="cantidad"/*utilizo la cantidad del props*/
+                    className={classes.text_field}
+                    InputProps={{
+                      style: {
+                        fontSize: "3.8vmin"
+                      }
+                    }}
+                    onChange={e => setcount(e.target.value)}
+                  //obtengo cantidad cuando lo cambie
+                  />
+
+                  <Link to="/crear_orden" >
+                    <Button type="submit" onClick={() => agregar_a_carrito(allValues.repuesto_buscado) /*se llama con fat arrow functions 
+          porque si solo paso la variable dentro de las llaves se va a llamar cuando renderize el componente*/} size="large" color="primary" className={classes.boton + " d-none d-md-block"}>
+                      Agregar al carrito de compras
+                    </Button>
+                    <Button type="submit" onClick={() => agregar_a_carrito(allValues.repuesto_buscado) /*se llama con fat arrow functions 
+          porque si solo paso la variable dentro de las llaves se va a llamar cuando renderize el componente*/} size="small" color="primary" className={classes.boton + " d-block d-md-none"}>
+                      Agregar
+                    </Button>
+                  </Link>
+
+                </CardActions>
+
+              </CardContent>
+            </Grid>
+          </CardActionArea>
+        </Grid>
+
 
       </Card>
+      
+      
 
 
     )
-  }
+
+  
+
+
+
 
 }

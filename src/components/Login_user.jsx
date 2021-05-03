@@ -3,16 +3,13 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
-import {Orden_backend}  from '../backend/orden.js'
+import { withRouter ,Link  , Redirect} from 'react-router-dom'
+import {User}  from '../backend/user.js'
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer, toast } from 'react-toastify';
 
 
-
-const obtener_carrito = () => {      /*aca obtengo datos del carrito*/
-    let carrito
-    carrito = JSON.parse(sessionStorage.getItem('carrito'))
-    return carrito;
-};
 
 const styles = {
     input: {
@@ -66,7 +63,7 @@ const styles = {
 };
 
 
-export default class Form_crear extends Component {
+class Login_user extends Component {
     state = {}
 
     obtener_datos = ({ target }) => {
@@ -78,74 +75,57 @@ export default class Form_crear extends Component {
 
     render() {
 
-        const crear_orden = () => {
-
-        
+        const iniciar_sesion = () => {       
             
 
-            const Direccion_entrega = this.state.dir_entrega
-            const Direccion_facturacion = this.state.dir_factura
+            const usuario = this.state.user
+            const pass = this.state.pass
 
           
 
-            const orden = {
-                user: sessionStorage.getItem("usuario"),                
-                dir_entrega: Direccion_entrega,
-                dir_factura: Direccion_facturacion,
-                Total: Total,
-                estado: 'En proceso',
-                Repuestos: ids_carrito
-            }
+           const user_=new User()
 
-            const orden_=new Orden_backend()
+            user_.login(usuario,pass).then(
+                (estado)=>{
+                    if(estado===404){
+                        toast.error('Usuario o contraseña incorrecta', {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    }else{
+                       
+                        this.props.history.push({
+                            pathname: '/tienda',
+                            state: {
+                                reload_ : true
+                            }
 
-            orden_.insertar_orden(orden)
-            cancelar_orden() //limpiar carrito
+                        });   
+                        
+
+
+                          
+
+                    }
+                  }
+            )
             
-        }
-
-        const cancelar_orden = () => {
-            const carrito = []
-            sessionStorage.setItem('carrito', JSON.stringify(carrito))
-        }
-
-        const carrito = obtener_carrito()
-        let ids_carrito = []
-        carrito.forEach(item => {
-            ids_carrito.push(JSON.parse(item)._id)
-        });
-
-        let Total = 0
-
-        const items = []
-
-        if (carrito.length !== 0) {
-
-            carrito.forEach(item => {
-                items.push(
-                    <Grid style={styles.item_grid}
-                        item xs={12}>{JSON.parse(item).nombre + "   -   " + "Q " + JSON.parse(item).precio} </Grid>);
-
-                Total += JSON.parse(item).precio
-            });
-
-
-
-
-
-            //por cada elemento agrego al array un componente item
+        }       //por cada elemento agrego al array un componente item
             return (
 
                 <div style={{
-                    marginTop: 70,
+                    marginTop: '6%',
                     display: 'flex',
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    justifyContent : 'center'
 
                 }}>
-                    <Grid container style={styles.container_grid}>
-                        {items}
-                    </Grid>
-
+                    <ToastContainer></ToastContainer>
 
                     <Grid spacing={5} style={{
                         display: 'flex',
@@ -164,13 +144,13 @@ export default class Form_crear extends Component {
                             <Typography variant="h5" color="textSecondary" component="body1" style={{
                                 color: '#29274E',
                                 marginRight: '17.9vmin'
-                            }}> {"Dirección de entrega:"}</Typography>
+                            }}> {"Usuario:"}</Typography>
 
 
                             <TextField
                                 variant="outlined"
-                                label="Direccion de entrega"
-                                name="dir_entrega"
+                                label="Usuario"
+                                name="user"
                                 style={styles.text_field}
                                 InputProps={{
                                     style: styles.input,
@@ -190,11 +170,12 @@ export default class Form_crear extends Component {
                                 color: '#29274E',
                                 font: 'msyi',
                                 marginRight: '15vmin'
-                            }}>  {"Dirección de facturación:"}</Typography>
+                            }}>  {"Contraseña"}</Typography>
                             <TextField
                                 variant="outlined"
-                                label="Direccion de facturacion"
-                                name="dir_factura"
+                                label="contraseña"
+                                type = "password"
+                                name="pass"
                                 style={styles.text_field}
                                 InputProps={{
                                     style: styles.input
@@ -205,13 +186,7 @@ export default class Form_crear extends Component {
                             />
                         </Grid>
 
-                        <Typography variant="h5" color="textSecondary" component="body1" style={{
-                            color: '#29274E',
-                            font: 'msyi',
-                            marginTop: '5vmin',
-                            width: '100vmin',
-                            textAlign: 'justify'
-                        }}>  {"Total:                   Q " + Total}</Typography>
+                        
 
 
 
@@ -221,15 +196,15 @@ export default class Form_crear extends Component {
                             marginTop: '100'
 
                         }}>
-                            <Link to="/ordenes" >
-                                <Button onClick={() => crear_orden()} type="submit" size="large" color="primary" style={styles.boton}>
-                                    Confirmar Orden
+                           
+                                <Button onClick={() => iniciar_sesion()} type="submit" size="large" color="primary" style={styles.boton}>
+                                    Iniciar sesión
                                 </Button>
-                            </Link>
+                           
 
                             <Link to="/crear_orden" >
-                                <Button onClick={() => cancelar_orden()} type="submit" size="large" color="primary" style={styles.boton}>
-                                    Cancelar Orden
+                                <Button type="submit" size="large" color="primary" style={styles.boton}>
+                                    Registrarse
                                 </Button>
                             </Link>
                         </Grid>
@@ -241,14 +216,7 @@ export default class Form_crear extends Component {
                 </div >
 
             )
-        } else {
-            return (<h1
-                style={{
-                    marginTop: 200
-                }}
-            >Agrega algo al carrito para realizar una compra :(  </h1>)
-
-        }
+        
 
 
 
@@ -256,5 +224,8 @@ export default class Form_crear extends Component {
 
     }
 }
+
+export default withRouter(Login_user);
+
 
 

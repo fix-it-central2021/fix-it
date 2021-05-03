@@ -15,7 +15,7 @@ export default class Item extends Component {
 
         return (
 
-            <Grid item xs={6}  md={3} >
+            <Grid item xs={6} sm={3}  md={3} >
                 <Link to = {{
                     pathname: "/vista-item/"+objeto._id,
                     state:{
@@ -25,7 +25,8 @@ export default class Item extends Component {
                         
                         textAlign: 'center'
                     }}>
-                        <Image cloudName="fix-it" publicId={"Repuestos/"+objeto.img} alt = "Repuesto"style={{
+                        <Image cloudName="fix-it" publicId={                              
+                           "Repuestos/"+ objeto.img} alt = "Repuesto"style={{
                             height: '100%',
                             width: '100%',
                             top:0,

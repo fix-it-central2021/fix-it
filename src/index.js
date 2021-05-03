@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { HomePage, CrearOrden, Tienda, Vistaitem ,Ordenes} from './App';
+import { HomePage, CrearOrden, Tienda, Vistaitem ,Ordenes,Login} from './App';
 import reportWebVitals from './reportWebVitals';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +16,9 @@ const THEME = createMuiTheme({
   }
 });
 
+
+
+
 ReactDOM.render(
   <MuiThemeProvider theme={THEME}>
     <Router>
@@ -27,7 +30,7 @@ ReactDOM.render(
         <Route exact path="/tienda" component={Tienda} />
         <Route exact path="/ordenes" component={Ordenes} />
         <Route exact path="/vista-item/:id" /*paso id cuando llamo a la vista individual de los items*/ component={Vistaitem} />
-
+        <Route exact path="/login" component={Login} />
       </Switch>
     </Router>
   </MuiThemeProvider>
@@ -35,20 +38,6 @@ ReactDOM.render(
   document.getElementById('root')
 
 );
-
-fetch('http://localhost:3600/login', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.  
-        mode: 'cors',      
-        headers: {
-            'Content-Type': 'application/json',
-          
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify({usuario: 'nuevo', contrasena: '12345678'})             
-      }) 
-      .then(response => response.json())
-      .then(data =>  localStorage.setItem('token',data.token));
-      
   
 
   
