@@ -13,7 +13,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const styles = {
     input: {
-        fontSize: 20
+        fontSize: '3.8vmin'
+      
     },
 
     item_grid: {
@@ -39,8 +40,9 @@ const styles = {
     },
 
     text_field: {
-
+        height: '5vmin',
         width: '60vmin',
+       marginBottom: '3.5vmin',
         font: 'msyi'
     },
 
@@ -51,7 +53,7 @@ const styles = {
         height: '7vmin',
         marginLeft: '6vmin',
         color: 'white',
-        marginTop: '10vmin',
+        marginTop: '15vmin',
         fontSize: '2vmin',
         Typography: {
             fontFamily: ['msyi'],
@@ -61,6 +63,7 @@ const styles = {
     },
 
 };
+
 
 
 class Login_user extends Component {
@@ -74,7 +77,6 @@ class Login_user extends Component {
     }
 
     render() {
-
         const iniciar_sesion = () => {       
             
 
@@ -141,10 +143,11 @@ class Login_user extends Component {
 
 
                         }}>
-                            <Typography variant="h5" color="textSecondary" component="body1" style={{
+                            <Typography variant="h6" color="textSecondary" component="body1" style={{
                                 color: '#29274E',
-                                marginRight: '17.9vmin'
-                            }}> {"Usuario:"}</Typography>
+                                marginRight: '17.9vmin',
+                                fontSize: '3.8vmin'
+                            }}> {"Usuario: "}</Typography>
 
 
                             <TextField
@@ -166,11 +169,12 @@ class Login_user extends Component {
                             flexDirection: 'row'
 
                         }}>
-                            <Typography variant="h5" color="textSecondary" component="body1" style={{
+                            <Typography variant="h6" color="textSecondary" component="body1" style={{
                                 color: '#29274E',
                                 font: 'msyi',
-                                marginRight: '15vmin'
-                            }}>  {"Contraseña"}</Typography>
+                                marginRight: '14vmin',
+                                fontSize: '3.8vmin'
+                            }}>  {"Contraseña: "}</Typography>
                             <TextField
                                 variant="outlined"
                                 label="contraseña"

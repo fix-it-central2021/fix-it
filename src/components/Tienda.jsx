@@ -30,7 +30,7 @@ repuesto.obtener_items().then(data => {
 }
 
 ).catch(function (error) {
-    console.log('Hubo un problema al traer datos al API y guardarlos: ' + error.message);
+    console.log('Hubo un problema al traer datos al API y guardarlos: ' + error);
 });
 
 export default function Tienda(props) {

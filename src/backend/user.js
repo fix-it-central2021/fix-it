@@ -20,7 +20,7 @@ export class User{
           sessionStorage.setItem('token',data.token)
           sessionStorage.setItem('user',user)
 
-          }
+          } 
            
           return response.status   
           

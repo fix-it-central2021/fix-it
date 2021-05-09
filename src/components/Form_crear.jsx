@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
-import {Orden_backend}  from '../backend/orden.js'
+import { Orden_backend } from '../backend/orden.js'
 
 
 
@@ -50,7 +50,7 @@ const styles = {
     boton: {
         borderRadius: 43,
         backgroundColor: '#15086B',
-        width: '40vmin',
+        width: '20vmin',
         height: '7vmin',
         marginLeft: '6vmin',
         color: 'white',
@@ -80,16 +80,16 @@ export default class Form_crear extends Component {
 
         const crear_orden = () => {
 
-        
-            
+
+
 
             const Direccion_entrega = this.state.dir_entrega
             const Direccion_facturacion = this.state.dir_factura
 
-          
+
 
             const orden = {
-                user: sessionStorage.getItem("usuario"),                
+                user: sessionStorage.getItem("usuario"),
                 dir_entrega: Direccion_entrega,
                 dir_factura: Direccion_facturacion,
                 Total: Total,
@@ -97,11 +97,11 @@ export default class Form_crear extends Component {
                 Repuestos: ids_carrito
             }
 
-            const orden_=new Orden_backend()
+            const orden_ = new Orden_backend()
 
             orden_.insertar_orden(orden)
             cancelar_orden() //limpiar carrito
-            
+
         }
 
         const cancelar_orden = () => {
@@ -147,26 +147,16 @@ export default class Form_crear extends Component {
                     </Grid>
 
 
-                    <Grid spacing={5} style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginLeft: '3vmin',
+                    <Grid container >
 
-                    }}>
-
-                        <Grid spacing={5} style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            marginBottom: 50,
-
-
-                        }}>
+                        <Grid item xs={12} md={6} >
                             <Typography variant="h5" color="textSecondary" component="body1" style={{
                                 color: '#29274E',
-                                marginRight: '17.9vmin'
+                                fontSize: '3.8vmin'
+
                             }}> {"Dirección de entrega:"}</Typography>
-
-
+                        </Grid>
+                        <Grid item xs={12} md={6} >
                             <TextField
                                 variant="outlined"
                                 label="Direccion de entrega"
@@ -181,16 +171,19 @@ export default class Form_crear extends Component {
 
                         </Grid>
 
-                        <Grid spacing={5} style={{
-                            display: 'flex',
-                            flexDirection: 'row'
 
-                        }}>
+
+                        <Grid item xs={12} md={6}>
                             <Typography variant="h5" color="textSecondary" component="body1" style={{
                                 color: '#29274E',
                                 font: 'msyi',
-                                marginRight: '15vmin'
+                                fontSize: '3.8vmin'
+
                             }}>  {"Dirección de facturación:"}</Typography>
+
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
                             <TextField
                                 variant="outlined"
                                 label="Direccion de facturacion"
@@ -205,28 +198,25 @@ export default class Form_crear extends Component {
                             />
                         </Grid>
 
-                        <Typography variant="h5" color="textSecondary" component="body1" style={{
-                            color: '#29274E',
-                            font: 'msyi',
-                            marginTop: '5vmin',
-                            width: '100vmin',
-                            textAlign: 'justify'
-                        }}>  {"Total:                   Q " + Total}</Typography>
+                        <Grid item xs={12} >
+                            <Typography variant="h5" color="textSecondary" component="body1" style={{
+                                color: '#29274E',
+                                font: 'msyi',
+                                marginTop: '5vmin',
+                                textAlign: 'justify',
+                                fontSize: '3.8vmin'
+                            }}>  {"Total:                   Q " + Total}</Typography>
 
+                        </Grid>
 
-
-                        <Grid spacing={5} style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            marginTop: '100'
-
-                        }}>
+                        <Grid item xs={6} >
                             <Link to="/ordenes" >
                                 <Button onClick={() => crear_orden()} type="submit" size="large" color="primary" style={styles.boton}>
                                     Confirmar Orden
                                 </Button>
                             </Link>
-
+                        </Grid>
+                        <Grid item xs={6} >
                             <Link to="/crear_orden" >
                                 <Button onClick={() => cancelar_orden()} type="submit" size="large" color="primary" style={styles.boton}>
                                     Cancelar Orden

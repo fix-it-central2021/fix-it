@@ -69,8 +69,7 @@ export default function Vista_item(props) {
 
   })
 
-  const [token_user, set_token_user] = useState({
-    token: sessionStorage.getItem("token") + ' ' , user: sessionStorage.getItem("user")  })
+ 
 
   const [count, setcount] = useState({
     count: 0
@@ -92,27 +91,6 @@ export default function Vista_item(props) {
           
 
         })
-
-      }).catch((error) => {
-
-        if (error.response) {
-
-          error.response.status === 401 ? 
-            sessionStorage.setItem("token", null)  :   sessionStorage.setItem("token", null);
-
-            error.response.status === 401 ? 
-            sessionStorage.setItem("user", null)  :   sessionStorage.setItem("user", null);
-
-            set_token_user( { token: sessionStorage.getItem("token") + ' ' , user: sessionStorage.getItem("user")})
-          setAllValues({
-            repuesto_buscado: {},
-            is_fetching: true
-            
-  
-          })
-         
-        }
-
 
       })
   }, [id])
@@ -142,10 +120,9 @@ export default function Vista_item(props) {
    
          
 
-
     return (
-      token_user.token===null ? 
-
+      (sessionStorage.getItem("token") === null ) ? 
+        
       <Redirect to="/login"/>
       :
       <Card style={{
