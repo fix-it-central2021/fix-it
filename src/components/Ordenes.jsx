@@ -24,10 +24,17 @@ export default function Ordenes(){
     
 
 
+    const  rerenderParentCallback = async () =>{
+        const orden_backend = new Orden_backend()
+        let ordenes
+        ordenes=  await orden_backend.traer_ordenes()
+        setstate({orders: ordenes , is_fetching:false })
+       
+    }
+      
 
     let ordenes=state.orders
     
-    console.log(ordenes)
 
   
     if(!state.is_fetching){
@@ -41,18 +48,20 @@ export default function Ordenes(){
             ordenes.forEach(item => {
                 console.log(item)
                 items.push(
-                    <Orden orden={item}></Orden>);
+                    <Orden orden={item}   renderParent={rerenderParentCallback}></Orden>);
             });
 
             //por cada elemento agrego al array un componente item
             return (
                 <div style={{
                     width: '85%',
-                    marginTop: 30,
+                    marginTop: '20vmin',
                     display: 'flex',
                     flexDirection: 'column',
                     marginLeft: '15%',
-                    marginRight: 0
+                    marginRight: 0,
+                    overflow: 'auto',
+                    height: '70vmin'
 
                 }}>
                     {items}

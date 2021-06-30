@@ -8,11 +8,7 @@ import { Orden_backend } from '../backend/orden.js'
 
 
 
-const obtener_carrito = () => {      /*aca obtengo datos del carrito*/
-    let carrito
-    carrito = JSON.parse(sessionStorage.getItem('carrito'))
-    return carrito;
-};
+
 
 const styles = {
     input: {
@@ -40,6 +36,7 @@ const styles = {
         borderRightStyle: 'solid',
         borderColor: 'gray',
         borderWidth: 2,
+        
         overflow: 'auto',
         height: '60vmin'
     },
@@ -69,8 +66,14 @@ const styles = {
 };
 
 
-export default class Form_crear extends Component {
-    state = {}
+
+
+export default class Form_actualizar extends Component {
+      
+    state = {conteo: 0}
+
+    
+   
 
     obtener_datos = ({ target }) => {
         const { name, value } = target
@@ -80,18 +83,19 @@ export default class Form_crear extends Component {
     }
 
     render() {
+       
+        const actualizar = () => {
 
-        const crear_orden = () => {
 
-
-
+        
 
             const Direccion_entrega = this.state.dir_entrega
             const Direccion_facturacion = this.state.dir_factura
 
 
 
-            const orden = {
+            const _orden = {
+                _id: orden._id ,
                 user: sessionStorage.getItem("user"),
                 dir_entrega: Direccion_entrega,
                 dir_factura: Direccion_facturacion,
@@ -102,34 +106,40 @@ export default class Form_crear extends Component {
 
             const orden_ = new Orden_backend()
 
-            orden_.insertar_orden(orden)
-            cancelar_orden() //limpiar carrito
+            orden_.actualizar(_orden)
+           
 
         }
 
-        const cancelar_orden = () => {
-            const carrito = []
-            sessionStorage.setItem('carrito', JSON.stringify(carrito))
+       
+
+        const {repuestosObjects} =  this.props.orden
+        const {orden} =  this.props
+
+
+        if(this.state.conteo===0){
+            this.setState({ dir_entrega : orden.Direccion_Entrega  , dir_factura : orden.Direccion_Facturacion })
+            this.setState({conteo: 1})
         }
 
-        const carrito = obtener_carrito()
+
         let ids_carrito = []
-        carrito.forEach(item => {
-            ids_carrito.push(JSON.parse(item)._id)
+        repuestosObjects.forEach(item => {
+            ids_carrito.push(item._id)
         });
 
         let Total = 0
 
         const items = []
 
-        if (carrito.length !== 0) {
+        if (repuestosObjects.length !== 0) {
 
-            carrito.forEach(item => {
+            repuestosObjects.forEach(item => {
                 items.push(
                     <Grid style={styles.item_grid}
-                        item xs={12}>{JSON.parse(item).nombre + "   -   " + "Q " + JSON.parse(item).precio} </Grid>);
+                        item xs={12}>{item.nombre + "   -   " + "Q " + item.precio} </Grid>);
 
-                Total += JSON.parse(item).precio
+                Total += item.precio
             });
 
 
@@ -178,7 +188,7 @@ export default class Form_crear extends Component {
                                     style: styles.input,
                                 }}
                                 onChange={this.obtener_datos}
-
+                                value={this.state.dir_entrega}
                             />
 
                         </Grid>
@@ -215,6 +225,7 @@ export default class Form_crear extends Component {
                                     style: styles.input
                                 }}
                                 onChange={this.obtener_datos}
+                                value={this.state.dir_factura}
 
 
                             />
@@ -231,21 +242,13 @@ export default class Form_crear extends Component {
 
                         </Grid>
 
-                        <Grid item xs={6} >
+                        <Grid item xs={12} >
                             <Link to="/ordenes" >
-                                <Button onClick={() => crear_orden()} type="submit" size="large" color="primary" style={styles.boton}>
-                                    Confirmar Orden
+                                <Button onClick={() => actualizar()} type="submit" size="large" color="primary" style={styles.boton}>
+                                    Actualizar Pedido
                                 </Button>
                             </Link>
                         </Grid>
-                        <Grid item xs={6} >
-                            <Link to="/crear_orden" >
-                                <Button onClick={() => cancelar_orden()} type="submit" size="large" color="primary" style={styles.boton}>
-                                    Cancelar Orden
-                                </Button>
-                            </Link>
-                        </Grid>
-
 
                     </Grid>
 

@@ -8,9 +8,13 @@ import '../App.css';
 
 export default class Loging extends Component {
 
-
+    state = {token : sessionStorage.getItem("token") }
 
     render() {
+        console.log(this.state.token)
+        console.log(sessionStorage.getItem("token"))
+       
+       
        
         let inicio_sesion = sessionStorage.getItem("token") != null 
         

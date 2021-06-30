@@ -10,7 +10,9 @@ const useStyles = makeStyles(() => ({
         flexGrow: 1,
         marginLeft: '5%',
         marginRight: '5%',
-        marginTop: '40px'
+        marginTop: '40px',
+        overflow: 'auto',
+        height: '70vmin'
     }
 }));
 
@@ -53,7 +55,7 @@ export default function Tienda(props) {
 
     return (
         <div className={classes.root} >
-            <Grid container spacing={2} >
+            <Grid container spacing={3} >
                 {items /*paso el array de componentes Item para renderizarlos*/}
             </Grid>
         </div>

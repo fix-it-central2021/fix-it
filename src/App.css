@@ -13,6 +13,14 @@
 
 }
 
+#page-container {
+  position: relative;
+  min-height: 130vmin;
+}
+
+#content-wrap {
+  padding-bottom: 2vmin;   
+}
 
 .App-header {
   background-color: #29274E;
@@ -20,6 +28,34 @@
   height: 27vmin;
   display: flex;
   margin-top: 0;
+}
+
+.App-footer {
+  background-color: #29274E;
+  text-align: left; 
+  display: flex;
+  margin-top: 20vmin; 
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45vmin; 
+}
+
+.footer .row {
+
+  margin-top: 4vmin;
+}
+
+.footer{
+  color: white;
+  font-size: 3vmin;
+
+}
+
+.redes a{
+  color: white;
+  margin: 9px 9px;
+
 }
 
 #login{

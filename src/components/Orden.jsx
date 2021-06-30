@@ -5,7 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Items_orden from './Items_orden'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
+import { Orden_backend } from '../backend/orden'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 const theme = createMuiTheme({
@@ -56,20 +59,38 @@ const styles = {
 
 };
 
-export default class Orden extends Component {
+class Orden extends Component {
 
     render() {
 
+        const MySwal = withReactContent(Swal)
 
         const eliminar_orden = () => {
-            let ordenes = []
 
-            ordenes = JSON.parse(localStorage.getItem('ordenes'))
-            const index = ordenes.findIndex(orden_ => orden_.id === orden.id)
-            ordenes.splice(index, 1)
-            localStorage.setItem('ordenes', JSON.stringify(ordenes))
+
+            let ordenback = new Orden_backend()
+            MySwal.fire({
+                title: 'Quieres borrar esta orden?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: `Sí`,
+                denyButtonText: `No`,
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    Swal.fire('Saved!', '', 'success')
+                    this.forceUpdate()
+                    ordenback.cancelar_orden(orden._id)
+
+                    this.props.renderParent();
+
+                } else if (result.isDenied) {
+                    Swal.fire('Su orden no se elimino', '', 'info')
+                }
+            })
+
         }
-        const { orden } =  this.props //obtengo la propiedad de this.props que es un objeto reservado de todos los componentes que me permite sacar propiedades para usarlas
+        const { orden } = this.props //obtengo la propiedad de this.props que es un objeto reservado de todos los componentes que me permite sacar propiedades para usarlas
         //en este caso le envio si ya incio sesion para mostrar el boton
         if (orden.Estado === 'En proceso') {
             return (
@@ -107,16 +128,25 @@ export default class Orden extends Component {
 
                         }}>
 
-                            <Button id="actualizar" style={styles.boton} type="submit" size="large" color="primary" >
-                                Actualizar
+
+                            <Button id="actualizar" style={styles.boton} type="submit" size="large" color="primary" ><Link to={{
+                                pathname: "/actualizar/" + orden._id,
+                                state: {
+                                    orden: orden
+                                }
+                            }}> Actualizar</Link>
+
                             </Button>
 
 
 
+
+
+
                             <Button onClick={eliminar_orden} id="cancelar" style={styles.boton} type="submit" size="large" color="primary" >
-                                <Link to="/ordenes" >
-                                    Cancelar
-                                </Link>
+
+                                Cancelar
+
 
                             </Button>
 
@@ -144,3 +174,5 @@ export default class Orden extends Component {
     }
 
 }
+
+export default withRouter(Orden)

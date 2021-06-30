@@ -22,6 +22,7 @@ export default function CenteredTabs() {
   //history push se puede utilizar para navegar a otras vistas
   const history = useHistory();
   const ver_inicio = useCallback(() => history.push('/'), [history]);
+  const ver_ubicacion = useCallback(() => history.push('/ubicacion'), [history]);
   const ver_tienda_en_linea = useCallback(() => history.push({
     pathname: '/tienda',
     state: {
@@ -57,7 +58,7 @@ export default function CenteredTabs() {
         <Tab
           style={{
             fontSize: '3.3vmin'
-          }} label="Ubicaciones" />
+          }} label="Ubicaciones"  onClick={ver_ubicacion} />
 
 
       </Tabs>

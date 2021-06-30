@@ -6,7 +6,7 @@ export class Repuesto {
   async obtener_items() {      /*aca obtengo datos de bases de datos*/
     let response
 
-    response = await fetch('http://localhost:3600/repuestos', {
+    response = await fetch('http://localhost:3800/repuestos', {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {
@@ -40,6 +40,7 @@ export class Repuesto {
 
       sessionStorage.removeItem('token')
       sessionStorage.removeItem('user')
+      window.Inicio.setState({ token: sessionStorage.getItem("token") })
       return data
     } else if (res.status === 200) {
       let data = await res.json()
@@ -47,13 +48,6 @@ export class Repuesto {
       user.re_sigin(sessionStorage.getItem("user"))
       return data
     }
-
-
-
-
-
-
-
 
 
   }

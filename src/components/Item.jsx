@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {Image} from 'cloudinary-react';
+import { Height } from '@material-ui/icons';
 
 
 
@@ -25,13 +26,19 @@ export default class Item extends Component {
                         
                         textAlign: 'center'
                     }}>
+                        <div style={{
+                            maxWidth: '20vmin',
+                            height: '100%'
+                        }}>
                         <Image cloudName="fix-it" publicId={                              
                            "Repuestos/"+ objeto.img} alt = "Repuesto"style={{
-                            height: '100%',
+                           
                             width: '100%',
                             top:0,
                             left:0
                         }}/>
+                        </div>
+                       
                         <h5>{objeto.nombre}</h5>
 
 

@@ -101,10 +101,12 @@ class Login_user extends Component {
                         });
                     }else{
                        
+                        window.Inicio.setState({token : sessionStorage.getItem("token")})
+
                         this.props.history.push({
                             pathname: '/tienda',
                             state: {
-                                reload_ : true
+                                reload_ : false
                             }
 
                         });   
@@ -133,6 +135,7 @@ class Login_user extends Component {
                         display: 'flex',
                         flexDirection: 'column',
                         marginLeft: '3vmin',
+                        marginTop: '15vmin'
 
                     }}>
 
@@ -206,7 +209,7 @@ class Login_user extends Component {
                                 </Button>
                            
 
-                            <Link to="/crear_orden" >
+                            <Link to="/registro" >
                                 <Button type="submit" size="large" color="primary" style={styles.boton}>
                                     Registrarse
                                 </Button>

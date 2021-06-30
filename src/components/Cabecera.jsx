@@ -32,7 +32,7 @@ export default class Cabecera extends Component {
         <Grid container spacing={1} style={{ width: "50vmin"}}>
 
           <Grid item xs={12} className="row" >
-            <Login /*envio metodo de opciones y en el this.props la lista que puede ser variable*/></Login>
+            <Login ref={Inicio => { window.Inicio = Inicio }} ></Login>
           </Grid>
 
           <Grid item xs={6} >
