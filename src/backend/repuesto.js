@@ -6,7 +6,7 @@ export class Repuesto {
   async obtener_items() {      /*aca obtengo datos de bases de datos*/
     let response
 
-    response = await fetch('http://localhost:3800/repuestos', {
+    response = await fetch(process.env.REACT_APP_PRO+'/repuestos', {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {
@@ -25,7 +25,7 @@ export class Repuesto {
   async traer_repuesto(id) {
 
 
-    let res = await fetch('http://localhost:3600/repuesto/' + id, {
+    let res = await fetch(process.env.REACT_APP_PRO+'/repuesto/' + id, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {

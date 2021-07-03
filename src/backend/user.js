@@ -3,7 +3,7 @@ export class User{
    
     async login(user, password)  {  
         let response    /*aca obtengo datos de bases de datos*/ 
-        response = await fetch('http://localhost:3700/login', {
+        response = await fetch(process.env.REACT_APP_PRO+'/login', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.  
             mode: 'cors',      
             headers: {
@@ -31,7 +31,7 @@ export class User{
 
 async re_sigin(user)  {  
   let response    /*aca obtengo datos de bases de datos*/ 
-  response = await fetch('http://localhost:3700/login/re_sign', {
+  response = await fetch(process.env.REACT_APP_PRO+'/login/re_sign', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',      
       headers: {
@@ -59,7 +59,7 @@ async re_sigin(user)  {
 async buscar_user(user) {
 
 
-  let res = await fetch('http://localhost:3700/users/' + user, {
+  let res = await fetch(process.env.REACT_APP_PRO+'/users/' + user, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.  
     mode: 'cors',
     headers: {
@@ -77,7 +77,7 @@ async buscar_user(user) {
 async registrar_user(user) {
 
 
-  let res = await fetch('http://localhost:3700/users', {
+  let res = await fetch(process.env.REACT_APP_PRO+'/users', {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.  
     mode: 'cors',
     headers: {
