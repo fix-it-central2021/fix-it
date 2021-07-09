@@ -3,7 +3,7 @@ export class User{
    
     async login(user, password)  {  
         let response    /*aca obtengo datos de bases de datos*/ 
-        response = await fetch(process.env.REACT_APP_PRO+'/login', {
+        response = await fetch(process.env.REACT_APP_PRO_USER+'/login', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.  
             mode: 'cors',      
             headers: {
@@ -31,7 +31,7 @@ export class User{
 
 async re_sigin(user)  {  
   let response    /*aca obtengo datos de bases de datos*/ 
-  response = await fetch(process.env.REACT_APP_PRO+'/login/re_sign', {
+  response = await fetch(process.env.REACT_APP_PRO_USER+'/login/re_sign', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',      
       headers: {
@@ -59,7 +59,7 @@ async re_sigin(user)  {
 async buscar_user(user) {
 
 
-  let res = await fetch(process.env.REACT_APP_PRO+'/users/' + user, {
+  let res = await fetch(process.env.REACT_APP_PRO_USER+'/users/' + user, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.  
     mode: 'cors',
     headers: {
@@ -77,7 +77,7 @@ async buscar_user(user) {
 async registrar_user(user) {
 
 
-  let res = await fetch(process.env.REACT_APP_PRO+'/users', {
+  let res = await fetch(process.env.REACT_APP_PRO_USER+'/users', {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.  
     mode: 'cors',
     headers: {
@@ -88,7 +88,8 @@ async registrar_user(user) {
     body: JSON.stringify(user)
   })
 
-  let data = await res.json()     
+  let data = await res.json()    
+  console.log(data) 
 
   if(res.status===200){
     sessionStorage.setItem('token',data.token)

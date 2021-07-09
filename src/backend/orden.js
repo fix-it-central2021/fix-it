@@ -8,7 +8,7 @@ export class Orden_backend {
     let res
     const user = new User()
     user.re_sigin(sessionStorage.getItem("user"))
-    res = await fetch(process.env.REACT_APP_PRO+'/orden', {
+    res = await fetch(process.env.REACT_APP_PRO_PRIV+'/orden', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {
@@ -43,7 +43,7 @@ export class Orden_backend {
     let res
     const user = new User()
     user.re_sigin(sessionStorage.getItem("user"))
-    res = await fetch(process.env.REACT_APP_PRO+'/orden/' + id, {
+    res = await fetch(process.env.REACT_APP_PRO_PRIV+'/orden/' + id, {
       method: 'DELETE', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {
@@ -76,7 +76,7 @@ export class Orden_backend {
     console.log(orden)
     const user = new User()
     user.re_sigin(sessionStorage.getItem("user"))
-    res = await fetch(process.env.REACT_APP_PRO+'/orden/' + orden._id, {
+    res = await fetch(process.env.REACT_APP_PRO_PRIV+'/orden/' + orden._id, {
       method: 'PUT', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {
@@ -111,7 +111,7 @@ export class Orden_backend {
     let response
     const user = new User()
     await user.re_sigin(sessionStorage.getItem("user"))
-    response = await fetch(process.env.REACT_APP_PRO+'/orden/' + sessionStorage.getItem("user"), {
+    response = await fetch(process.env.REACT_APP_PRO_PRIV+'/orden/' + sessionStorage.getItem("user"), {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.  
       mode: 'cors',
       headers: {
