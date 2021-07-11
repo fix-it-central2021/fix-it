@@ -25,7 +25,7 @@ ReactDOM.render(
   <MuiThemeProvider theme={THEME}>
     <Router>
 
-      <Cabecera titulo="FIX IT" />
+      <Cabecera titulo="FIX" />
       <Barra></Barra>
       <div id="page-container">
         <div id="content-wrap">
